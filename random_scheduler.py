@@ -5,6 +5,7 @@ Use it to generate random door and bar shifts.
 
 @author Vladislav Karchevsky
 @author Ryan Flynn
+@author Reese Levine
 """
 
 import random
@@ -14,7 +15,7 @@ import os
 
 # How many shifts?
 NUM_SLOTS = 7
-DATE = input("What is the date of this event?\n")
+DATE = raw_input("What is the date of this event?\n")
 #DATE = eg.enterbox("What is the date of the event?", "Date")
 
 def pickRandomBros(broList, numSample):
@@ -26,31 +27,23 @@ def pickRandomBros(broList, numSample):
 
 doorShift1 = []
 doorShift2 = []
+doorShift3 = []
+doorShift4 = []
 barShift1 = []
 barShift2 = []
+barShift3 = []
+barShift4 = []
 
 
 # Create brotherhood lists
-beta = ["Sam Parks"]
-gamma = ["Stefan Isenberger",
-		"Max Mathison",
-		"Nathan Gomez",
-		"Shahrukh Ghazali",
-		"Jay Patel",
-		"Ali Imani"]
-delta = ["Ronak Patel",
-		"Jason Johl",
-		"Aaron Boussina",
-		"Jonathan Hsu",
-		"Rehan Hasan"]
+gamma = ["Nathan Gomez"]
+delta = ["Jason Johl",
+                "Aaron Boussina"]
 epsilon = ["Curtis Siegfried",
 		"Mitchell Pok",
 		"Paul Levchenko",
 		"Conor Stanton",
-		"Vlad Karchevsky",
-		"Michael Metzler",
 		"Manny Sabbagh",
-		"Ian Chin",
 		"Rehman Minhas"]
 zeta = ["Taylor Ferguson",
 		"Evan Mason",
@@ -66,7 +59,6 @@ zeta = ["Taylor Ferguson",
 		"Jack Hendershott",
 		"Mark Traganza",
 		"Han Li",
-		"Karan Karia",
 		"Evin Wieser",
 		"Matthew Buckley",
 		"Erik Bartlett",
@@ -79,16 +71,14 @@ eta = ["Kyle Joyner",
 		"Christian Collins",
 		"Anand Dharia",
 		"Francisco Torres",
-		"Martin Rayburn",
 		"Donovan Frazer",
 		"Nick Alaverdyan",
 		"Mustapha Khokhar",
 		"Laith Alqaisi"]
-pledges = ["Aman Khan",
+theta = ["Aman Khan",
 		"Andrew Ahmadi",
 		"Aneesh Prasad",
 		"Ben Kurschner",
-		"Christiaan Khurana",
 		"Christos Gkolias",
 		"Elliot Dunn",
 		"Harrison Agrusa",
@@ -109,14 +99,58 @@ pledges = ["Aman Khan",
 		"Sahand Saberi",
 		"Thomas Zorilla",
 		"Will Morrow"]
+iota = ["Alex Clark",
+                "Kenny Dang",
+                "Brent Freed",
+                "Jacob Gill",
+                "Darius Kay",
+                "David Kret",
+                "Will Lopez",
+                "Dhruv Malik",
+                "Ian Moon",
+                "Francisco Peralta",
+                "Brandt Sheets",
+                "Andrew Ting",
+                "Evan Wilson"]
+
+pledges = ["Anthony Fortney",
+                "Steven Lin",
+                "Ford Noble",
+                "Ryan Leyba",
+                "Robert Mcilhatton",
+                "Jonathan",
+                "Morris Ravis",
+                "Ben Lalezari",
+                "Drew Hanson",
+                "Josh Bradley-Bevan",
+                "Steven Beelar",
+                "Gabriel Bogner",
+                "Dylan Dreyer",
+                "Luke Thomas",
+                "Tzartzas Tinos",
+                "Nate Parke",
+                "Dan Lee",
+                "Max Seltzer",
+                "Andy Frey",
+                "Nathan Kelleher",
+                "Arnav Chaturvedi",
+                "Sam Giacometti",
+                "Sam Bauman"]
 
 # Aggregate brothers gone from social event
-permaAbsent = ["Vlad Karchevsky", "Rikesh Patel", "Andrew Soncrant", 
-	"Donovan Frazer"]
+permaAbsent = ["Brent Freed", "Jack Hendershott", "Donovan Frazer"]
+
+# -------- Reese's addition for special events with more positions -----------
+specialEvent = raw_input("Is this a special event? ")
+
+if specialEvent.strip().lower() == "yes":
+         runSpecialScheduler = True
+else:
+        runSpecialScheduler = False
 
 # -------- Ryan's addition to make excluding absent brothers easier -----------
 
-anyAbsent = input("Will any brothers be absent from this event? ")
+anyAbsent = raw_input("Will any brothers be absent from this event? ")
 #absentMsg = "Will any brothers be absent from this event?"
 #absentTtl = "Any Absent?"
 #anyAbsent = eg.enterbox(absentMsg, absentTtl)
@@ -128,7 +162,7 @@ else:
 absentTonight = []
 
 while runAbsentSurvey:
-	name = input("Please enter the name of the absent brother. "+
+	name = raw_input("Please enter the name of the absent brother. "+
 		"If this is the last absent brother, end with a period. \n")
 	#msg = ("Please enter the name of the absent brother. "+
 	#	"If this is the last absent brother, end with a period.")
@@ -149,7 +183,7 @@ while runAbsentSurvey:
 absent = permaAbsent + absentTonight
 
 # Create a subset of brothers that can do work during social event
-eligibleBros = list(set(eta + zeta + pledges + epsilon))
+eligibleBros = list(set(epsilon + zeta + eta + theta + iota + pledges))
 
 # -------------------------- Ryan's next addition -----------------------------
 # takes into account class in the likelihood of selection
@@ -181,6 +215,10 @@ brothers_good_at_door = ["Curtis Siegfried",
 # List of those available by class who are also not in brothers_good_at_door
 available_pledges = [pledge for pledge in pledges if pledge \
 	not in absentTonight]
+available_iota = [iota_mem for iota_mem in iota if not (iota_mem in absentTonight
+        or iota_mem in permaAbsent or iota_mem in brothers_good_at_door)]
+available_theta = [theta_mem for theta_mem in theta if not (theta_mem in absentTonight
+        or theta_mem in permaAbsent or theta_mem in brothers_good_at_door)]
 available_eta = [eta_mem for eta_mem in eta if not (eta_mem in absentTonight
 	or eta_mem in permaAbsent or eta_mem in brothers_good_at_door)]
 available_zeta = [zeta_mem for zeta_mem in zeta if not (zeta_mem in 
@@ -199,12 +237,21 @@ available_brothers_good_at_door = [bro for bro in brothers_good_at_door if
 # multiple shifts later
 doorShift2 = pickRandomBros(available_pledges, NUM_SLOTS)
 roofShift = pickRandomBros(available_pledges, 4)
+if runSpecialScheduler:
+        doorShift4 = pickRandomBros(available_pledges, NUM_SLOTS)
 
 # List of tuples. First item in tuple is the available members of the class.
 # Second item is used as a weight so that lower class brothers (and pledges)
 # get shifts more often.
-lst_availables = [(available_delta, .3), (available_epsilon, .4), 
-	(available_zeta, .5), (available_eta, .9), (available_pledges, 1)]
+if runSpecialScheduler: 
+        lst_availables = [(available_epsilon, .3), (available_zeta, .7),
+                          (available_eta, 1), (available_theta, 1),
+                          (available_iota, 1), (available_pledges, 1)]
+
+else:
+        lst_availables = [(available_epsilon, .3), (available_zeta, .4),
+                          (available_eta, .5), (available_theta, .6), 
+                          (available_iota, .8),  (available_pledges, 1)]
 
 final_lst = []
 
@@ -223,13 +270,15 @@ for lst in lst_availables:
 
 # Picks only brothers good at door to work doorShift1 (alongside a pledge)
 doorShift1 = pickRandomBros(available_brothers_good_at_door, NUM_SLOTS)
-
 barShift1 = pickRandomBros(final_lst, NUM_SLOTS)
 barShift2 = pickRandomBros(final_lst, NUM_SLOTS)
-
+if runSpecialScheduler:
+        doorShift3 = pickRandomBros(final_lst, NUM_SLOTS)
+        barShift3 = pickRandomBros(final_lst, NUM_SLOTS)
+        barShift4 = pickRandomBros(final_lst, NUM_SLOTS)
 # ---------------- Writes shift assignments to an excel file ------------------
 
-filename = "ShiftSample1.xlsx"
+filename =  "PhiPsiShifts.xlsx"
 workbook = xlsxwriter.Workbook(filename)
 worksheet = workbook.add_worksheet()
 worksheet.set_landscape()
@@ -280,6 +329,11 @@ worksheet.set_column(3, 3, 20)
 worksheet.set_column(4, 4, 20)
 worksheet.set_column(5, 5, 20)
 worksheet.set_column(6, 6, 20)
+if runSpecialScheduler:
+    worksheet.set_column(7, 7, 20)
+    worksheet.set_column(8, 8, 20)
+    worksheet.set_column(9, 9, 20)
+    worksheet.set_column(10, 10, 20)
 
 TITLE = '&C&30&"Calibri,Bold"Phi Psi Door and Bar Shift ' + DATE
 worksheet.set_header(TITLE)
@@ -292,7 +346,10 @@ worksheet.write(7, 1, "12:00-12:30", time)
 worksheet.write(8, 1, "12:30-1:00", time)
 worksheet.write(9, 1, "1:00-1:30", time)
 
-worksheet.write(2, 2, "Door 1", header)
+if runSpecialScheduler:
+    worksheet.write(2, 2, "Back Door 1", header)
+else:
+    worksheet.write(2, 2, "Door 1", header)
 row = 3
 for bro in doorShift1:
 	if row == 9:
@@ -301,7 +358,10 @@ for bro in doorShift1:
 		worksheet.write(row, 2, bro, names1)
 	row += 1
 
-worksheet.write(2, 3, "Door 2", header)
+if runSpecialScheduler:
+    worksheet.write(2, 3, "Back Door 2", header)
+else:
+    worksheet.write(2, 3, "Door 2", header)
 row = 3
 for bro in doorShift2:
 	if row == 9:
@@ -320,7 +380,7 @@ for i in range(3, 10):
 	else:
 		worksheet.write(i, 4, "", empty1)
 
-worksheet.write(2, 5, "Bar 1", header)
+worksheet.write(2, 5, "Downstairs Bar 1", header)
 row = 3
 for bro in barShift1:
 	if row == 9:
@@ -329,7 +389,7 @@ for bro in barShift1:
 		worksheet.write(row, 5, bro, names1)
 	row += 1
 
-worksheet.write(2, 6, "Bar 2", header)
+worksheet.write(2, 6, "Downstairs Bar 2", header)
 row = 3
 for bro in barShift2:
 	if row == 9:
@@ -338,11 +398,46 @@ for bro in barShift2:
 		worksheet.write(row, 6, bro, names2)
 	row += 1
 
+if runSpecialScheduler:
+    worksheet.write(2, 7, "Upstairs Bar 1", header)
+    row = 3
+    for bro in barShift3:
+        if row == 9:
+                worksheet.write(row, 7, bro, names3)
+        else:
+                worksheet.write(row, 7, bro, names1)
+        row += 1
 
+    worksheet.write(2, 8, "Upstairs Bar 2", header)
+    row = 3
+    for bro in barShift4:
+        if row == 9:
+                worksheet.write(row, 8, bro, names3)
+        else:
+                worksheet.write(row, 8, bro, names1)
+        row += 1
+
+    worksheet.write(2, 9, "Courtyard 1", header)
+    row = 3
+    for bro in doorShift3:
+        if row == 9:
+                worksheet.write(row, 9, bro, names3)
+        else:
+                worksheet.write(row, 9, bro, names1)
+        row += 1
+
+    worksheet.write(2, 10, "Courtyard 2", header)
+    row = 3
+    for bro in doorShift4:
+        if row == 9:
+                worksheet.write(row, 10, bro, names4)
+        else:
+                worksheet.write(row, 10, bro, names2)
+        row += 1
 
 workbook.close()
 
-os.startfile(filename)
+os.system("open " + filename)
 
 # ------------------------ end of Ryan's contribution -------------------------
 
