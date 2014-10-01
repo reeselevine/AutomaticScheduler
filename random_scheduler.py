@@ -156,27 +156,30 @@ anyAbsent = raw_input("Will any brothers be absent from this event? ")
 #anyAbsent = eg.enterbox(absentMsg, absentTtl)
 if anyAbsent.strip().lower() == "yes":
 	runAbsentSurvey = True
+        print("Please enter the names of each absent brother, one per line. Once" +
+              "you have entered all the names, end with a new line containing a" +
+              "single period. \n")
 else:
 	runAbsentSurvey = False
 
 absentTonight = []
 
 while runAbsentSurvey:
-	name = raw_input("Please enter the name of the absent brother. "+
-		"If this is the last absent brother, end with a period. \n")
+	name = raw_input()
 	#msg = ("Please enter the name of the absent brother. "+
 	#	"If this is the last absent brother, end with a period.")
 	#ttl = "Absent Brothers"
 	#name = eg.enterbox(msg, ttl)
-	if name[len(name) - 1] == ".":
-		last = True
+        if name[0] == ".":
+                last = True
 	else:
 		last = False
 	if last:
-		absentTonight += [name[:-1],]
 		runAbsentSurvey = False
 	else:
 		absentTonight += [name]
+
+print("Creating the schedule now.")
 
 # ----------------------- End of Ryan's First Addition ------------------------
 
