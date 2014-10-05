@@ -60,7 +60,7 @@ zeta = ["Taylor Ferguson",
 		"Mark Traganza",
 		"Han Li",
 		"Evin Wieser",
-		"Matthew Buckley",
+		"Matt Buckley",
 		"Erik Bartlett",
 		"Eric Smith",
 		"Spencer Hawley"]
@@ -156,8 +156,8 @@ anyAbsent = raw_input("Will any brothers be absent from this event? ")
 #anyAbsent = eg.enterbox(absentMsg, absentTtl)
 if anyAbsent.strip().lower() == "yes":
 	runAbsentSurvey = True
-        print("Please enter the names of each absent brother, one per line. Once" +
-              "you have entered all the names, end with a new line containing a" +
+        print("Please enter the names of each absent brother, one per line. Once " +
+              "you have entered all the names, end with a new line containing a " +
               "single period. \n")
 else:
 	runAbsentSurvey = False
@@ -217,24 +217,14 @@ brothers_good_at_door = ["Curtis Siegfried",
 
 # List of those available by class who are also not in brothers_good_at_door
 available_pledges = [pledge for pledge in pledges if pledge \
-	not in absentTonight]
-available_iota = [iota_mem for iota_mem in iota if not (iota_mem in absentTonight
-        or iota_mem in permaAbsent or iota_mem in brothers_good_at_door)]
-available_theta = [theta_mem for theta_mem in theta if not (theta_mem in absentTonight
-        or theta_mem in permaAbsent or theta_mem in brothers_good_at_door)]
-available_eta = [eta_mem for eta_mem in eta if not (eta_mem in absentTonight
-	or eta_mem in permaAbsent or eta_mem in brothers_good_at_door)]
-available_zeta = [zeta_mem for zeta_mem in zeta if not (zeta_mem in 
-	absentTonight or zeta_mem in permaAbsent or zeta_mem in 
-	brothers_good_at_door)]
-available_epsilon = [epsilon_mem for epsilon_mem in epsilon if not (
-	epsilon_mem in absentTonight or epsilon_mem in permaAbsent or epsilon_mem in 
-	brothers_good_at_door)]
-available_delta = [delta_mem for delta_mem in delta if not (
-	delta_mem in absentTonight or delta_mem in permaAbsent or delta_mem in 
-	brothers_good_at_door)]
-available_brothers_good_at_door = [bro for bro in brothers_good_at_door if
-	bro not in absentTonight]
+	not in absent]
+available_iota = [iota_mem for iota_mem in iota if iota_mem not in absent]
+available_theta = [theta_mem for theta_mem in theta if theta_mem not in absent]
+available_eta = [eta_mem for eta_mem in eta if eta_mem not in absent]
+available_zeta = [zeta_mem for zeta_mem in zeta if zeta_mem not in absent]
+available_epsilon = [epsilon_mem for epsilon_mem in epsilon if epsilon_mem not in absent]
+available_delta = [delta_mem for delta_mem in delta if delta_mem not in absent]
+available_brothers_good_at_door = [bro for bro in brothers_good_at_door if bro not in absent]
 
 # Picks pledges out of available_pledges now so that they will not be given 
 # multiple shifts later
@@ -272,7 +262,7 @@ for lst in lst_availables:
 		final_lst += [el,]
 
 # Picks only brothers good at door to work doorShift1 (alongside a pledge)
-doorShift1 = pickRandomBros(available_brothers_good_at_door, NUM_SLOTS)
+doorShift1 = pickRandomBros(final_lst, NUM_SLOTS)
 barShift1 = pickRandomBros(final_lst, NUM_SLOTS)
 barShift2 = pickRandomBros(final_lst, NUM_SLOTS)
 if runSpecialScheduler:
