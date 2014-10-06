@@ -1,2 +1,24 @@
 This program uses an algorithm to assign event shifts to fraternity brothers
 and automatically exports the results to an excel file.
+
+*** Running the Program ***
+
+Run with the command: python random_scheduler.py
+
+The program will first ask what the date of the event is. This date will show
+up at the top of the Excel spreadsheet when it is printed.
+
+The program will then ask whether the event is a special event. A normal
+event includes two bar shifts, two door shifts, and a roof shift.
+A special event includes upstairs and downstairs bar assignments, courtyard
+and back door assignments, and a roof shift.
+
+The third question the program will ask if any brothers will be absent. If 
+the answer is yes, the program will prompt for a brother's name. Enter one
+brother's name per line. If this is the last absent brother, put a period
+after the brother's name.
+
+Finally, the program will write an excel file named "PhiPsiShifts.xslx" and
+open it.
+
+***
