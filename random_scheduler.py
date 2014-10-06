@@ -138,7 +138,7 @@ pledges = ["Anthony Fortney",
                 "Sam Bauman"]
 
 # Aggregate brothers gone from social event
-permaAbsent = ["Brent Freed", "Jack Hendershott", "Donovan Frazer"]
+permaAbsent = ["Brent Freed", "Jack Hendershott", "Donovan Frazer", "Ryan Flynn"]
 
 # -------- Reese's addition for special events with more positions -----------
 specialEvent = raw_input("Is this a special event? ")
