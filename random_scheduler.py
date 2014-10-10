@@ -118,7 +118,7 @@ pledges = ["Anthony Fortney",
                 "Ford Noble",
                 "Ryan Leyba",
                 "Robert Mcilhatton",
-                "Jonathan",
+                "Jonathan Tuttle",
                 "Morris Ravis",
                 "Ben Lalezari",
                 "Drew Hanson",
@@ -138,7 +138,7 @@ pledges = ["Anthony Fortney",
                 "Sam Bauman"]
 
 # Aggregate brothers gone from social event
-permaAbsent = ["Brent Freed", "Jack Hendershott", "Donovan Frazer", "Ryan Flynn"]
+permaAbsent = ["Brent Freed", "Jack Hendershott", "Donovan Frazer", "Ryan Flynn", "Zach Hawtof", "Conor Stanton", "Kyle Joyner", "Rikesh Patel"]
 
 # -------- Reese's addition for special events with more positions -----------
 specialEvent = raw_input("Is this a special event? ")
@@ -216,8 +216,7 @@ brothers_good_at_door = ["Curtis Siegfried",
 						 ]
 
 # List of those available by class who are also not in brothers_good_at_door
-available_pledges = [pledge for pledge in pledges if pledge \
-	not in absent]
+available_pledges = [pledge for pledge in pledges if pledge not in absent]
 available_iota = [iota_mem for iota_mem in iota if iota_mem not in absent]
 available_theta = [theta_mem for theta_mem in theta if theta_mem not in absent]
 available_eta = [eta_mem for eta_mem in eta if eta_mem not in absent]
@@ -237,14 +236,13 @@ if runSpecialScheduler:
 # Second item is used as a weight so that lower class brothers (and pledges)
 # get shifts more often.
 if runSpecialScheduler: 
-        lst_availables = [(available_epsilon, .3), (available_zeta, .7),
-                          (available_eta, 1), (available_theta, 1),
-                          (available_iota, 1), (available_pledges, 1)]
+        lst_availables = [(available_zeta, .7), (available_eta, 1),
+                          (available_theta, 1), (available_iota, 1),
+                          (available_pledges, 1)]
 
 else:
-        lst_availables = [(available_epsilon, .3), (available_zeta, .4),
-                          (available_eta, .5), (available_theta, .6), 
-                          (available_iota, .8),  (available_pledges, 1)]
+        lst_availables = [(available_zeta, .1), (available_eta, .4),
+                          (available_theta, .7), (available_iota, 1)]
 
 final_lst = []
 
@@ -275,6 +273,7 @@ filename =  "PhiPsiShifts.xlsx"
 workbook = xlsxwriter.Workbook(filename)
 worksheet = workbook.add_worksheet()
 worksheet.set_landscape()
+worksheet.set_margins(left = 0.25, right = 0.25)
 
 title = workbook.add_format()
 title.set_font_size(30)
